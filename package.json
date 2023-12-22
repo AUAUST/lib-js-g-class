@@ -22,12 +22,13 @@
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
-  "dependencies": {
-    "@changesets/cli": "^2.27.1",
+  "dependencies": {},
+  "devDependencies": {
     "@jest/globals": "^29.7.0",
     "jest": "^29.7.0",
     "ts-jest": "^29.1.1",
     "tsup": "^7.2.0",
-    "typescript": "^5.2.2"
+    "typescript": "^5.2.2",
+    "@changesets/cli": "^2.27.1"
   }
 }
