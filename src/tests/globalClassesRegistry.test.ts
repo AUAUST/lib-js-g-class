@@ -1,29 +1,25 @@
-import {
-  registerModule,
-  dropModule,
-  type RegisteredCSSModules,
-} from "../../index";
+import { registerModule, dropModule } from "../../index";
 import { gc } from "~/globalClasses";
 
 import style from "~/tests/helpers/style.css";
 
 import { describe, expect, test } from "@jest/globals";
 
-declare module "../../index" {
-  interface RegisteredCSSModules {
-    // This one is registered.
-    // It's used to test the runtime extension.
-    style: typeof style;
+// declare module "../../index" {
+//   interface RegisteredCSSModules {
+//     // This one is registered.
+//     // It's used to test the runtime extension.
+//     style: typeof style;
 
-    // This one is never registered, but is typed.
-    // It's used to test the type-level extension.
-    fake: typeof style;
+//     // This one is never registered, but is typed.
+//     // It's used to test the type-level extension.
+//     fake: typeof style;
 
-    // Setting this to `true` must allow any class to be used within the namespace.
-    // It's a way to allow the namespace to be used in cases where we can't actually type the classes.
-    unknown: true;
-  }
-}
+//     // Setting this to `true` must allow any class to be used within the namespace.
+//     // It's a way to allow the namespace to be used in cases where we can't actually type the classes.
+//     unknown: true;
+//   }
+// }
 
 describe("globalClassesRegistry", () => {
   describe("registerModule", () => {

@@ -1,11 +1,11 @@
 /**
  * The registered CSS modules, where the user-chosen namespaces map to the CSS module objects.
  */
-type RegisteredCSSModules = {
-  [namespace: string]: GClass.CSSModuleClasses | true;
-};
+interface RegisteredCSSModules {}
 
 namespace GClass {
+  type IsEmptyInterface<T> = keyof T extends never ? true : false;
+
   /**
    * A CSS module object, where the keys are the source class names and the values are the generated class names at runtime.
    */
@@ -17,13 +17,15 @@ namespace GClass {
    * A union of all the registered global classes' namespaced class names.
    * `example:className`
    */
-  export type RegisteredGlobalClasses = {
-    // If the value is `true`, it means the namespace is registered but we don't know the classes on the type level.
-    // So we allow any string as the class name within that namespace.
-    [K in keyof RegisteredCSSModules]: RegisteredCSSModules[K] extends true
-      ? `${K & string}:${string}`
-      : `${K & string}:${keyof RegisteredCSSModules[K] & string}`;
-  }[keyof RegisteredCSSModules];
+
+  export type RegisteredGlobalClasses =
+    IsEmptyInterface<RegisteredCSSModules> extends true
+      ? `${string}:${string}`
+      : {
+          [K in keyof RegisteredCSSModules]: RegisteredCSSModules[K] extends CSSModuleClasses
+            ? `${K & string}:${keyof RegisteredCSSModules[K] & string}`
+            : `${K & string}:${string}`;
+        }[keyof RegisteredCSSModules];
 
   /**
    * A final value that can be handled as a class; either by applying it as-is or discarding it.

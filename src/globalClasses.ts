@@ -37,14 +37,22 @@ import { type GClass } from "~/types";
  * gc("grid:container") === gc["grid:container"]
  * ```
  */
-const gc = function (...classes): string {
-  return cl(...classes.map((cl) => gc[cl]));
-} as TGlobalClassesFunction;
+// const gc = function (...classes): string {
+//   return cl(...classes.map((cl) => gc[cl]));
+// } as TGlobalClassesFunction;
 
-type TGlobalClassesFunction = {
+// type TGlobalClassesFunction = {
+//   (...classes: GClass.RegisteredGlobalClasses[]): string;
+// } & {
+//   [K in GClass.RegisteredGlobalClasses]: string;
+// };
+
+const gc: {
   (...classes: GClass.RegisteredGlobalClasses[]): string;
 } & {
   [K in GClass.RegisteredGlobalClasses]: string;
-};
+} = function (...classes: GClass.RegisteredGlobalClasses[]): string {
+  return cl(classes.map((cl) => gc[cl]));
+} as any;
 
 export { gc };
