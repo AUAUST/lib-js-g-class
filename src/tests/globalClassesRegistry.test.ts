@@ -5,22 +5,6 @@ import style from "~/tests/helpers/style.css";
 
 import { describe, expect, test } from "@jest/globals";
 
-// declare module "../../index" {
-//   interface RegisteredCSSModules {
-//     // This one is registered.
-//     // It's used to test the runtime extension.
-//     style: typeof style;
-
-//     // This one is never registered, but is typed.
-//     // It's used to test the type-level extension.
-//     fake: typeof style;
-
-//     // Setting this to `true` must allow any class to be used within the namespace.
-//     // It's a way to allow the namespace to be used in cases where we can't actually type the classes.
-//     unknown: true;
-//   }
-// }
-
 describe("globalClassesRegistry", () => {
   describe("registerModule", () => {
     test("is a function", () => {
@@ -36,10 +20,13 @@ describe("globalClassesRegistry", () => {
       expect(() => registerModule(null, style)).toThrow();
     });
 
-    test("correctly extends on the type level", () => {
+    test("correctly enforces key format on the type level", () => {
       /**
-       * The `fake` namespace is never registered, but is typed.
-       * It should be allowed; `foo` and `foo:bar` should be disallowed.
+       * `${string}:${string}` is the only valid format.
+       * Regardless of how classes interface is extended, we will *always* need to enforce this format.
+       *
+       * It's not possible to actually test how the extension works, as it'd mean extending the package
+       * in a way the extensions added for the tests would be included in the package itself; which is not acceptable.
        */
 
       expect(typeof gc["fake:classA"]).toBe("undefined");
@@ -47,12 +34,7 @@ describe("globalClassesRegistry", () => {
 
       // @ts-expect-error
       expect(typeof gc["foo"]).toBe("undefined");
-      // @ts-expect-error
       expect(typeof gc["foo:bar"]).toBe("undefined");
-    });
-
-    test("allows to register a namespace without classes with `true`", () => {
-      expect(typeof gc["unknown:a"]).toBe("undefined");
     });
 
     test("is able to register a namespace", () => {
