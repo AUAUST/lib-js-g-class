@@ -1,4 +1,4 @@
-import { gc } from "~/globalClasses";
+import { gc } from "../../index";
 
 import { describe, expect, test } from "@jest/globals";
 
