@@ -177,7 +177,7 @@ gc("grid:validClass"); // Will be highlighted as an error by your IDE as the int
 // If, however, you used the same code without extending the interface, each entry would be accepted as they respect the `${string}:${string}` format.
 ```
 
-### Concrete Example
+### Concrete Example
 
 Since the `gc()` function returns a string, you can easily include it in the `cl()` function too. If you only need to use global classes, you can safely only use the `gc()` function as it provides the same runtime safety as the `cl()` function.
 
