@@ -2,7 +2,7 @@
   "name": "@auaust/g-class",
   "description": "The only function you'll ever need to work with HTML classes in JavaScript",
   "license": "GPL-3.0-only",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "publishConfig": {
     "access": "public"
   },
