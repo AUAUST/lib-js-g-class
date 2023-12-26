@@ -1,5 +1,11 @@
 # @auaust/g-class
 
+## 0.1.2
+
+### Patch Changes
+
+- cbf4ae1: Minify bundles
+
 ## 0.1.1
 
 ### Patch Changes
