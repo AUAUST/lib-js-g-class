@@ -1,45 +1,45 @@
-import { getNamespacedClasses, toClassName } from "../../index";
+import { getNamespacedClasses, className } from "../../index";
 
 import { describe, expect, test } from "@jest/globals";
 
 describe("Utils", () => {
-  describe("toClassName", () => {
+  describe("className", () => {
     test("is a function", () => {
-      expect(typeof toClassName).toBe("function");
+      expect(typeof className).toBe("function");
     });
 
     test("returns a string even without input", () => {
       // @ts-expect-error
-      expect(typeof toClassName()).toBe("string");
-      expect(typeof toClassName(undefined)).toBe("string");
-      expect(typeof toClassName(false)).toBe("string");
-      expect(typeof toClassName([])).toBe("string");
-      expect(typeof toClassName(() => undefined)).toBe("string");
+      expect(typeof className()).toBe("string");
+      expect(typeof className(undefined)).toBe("string");
+      expect(typeof className(false)).toBe("string");
+      expect(typeof className([])).toBe("string");
+      expect(typeof className(() => undefined)).toBe("string");
     });
 
     test("ignores falsy values", () => {
-      expect(toClassName(undefined)).toBe("");
-      expect(toClassName("")).toBe("");
-      expect(toClassName(null)).toBe("");
+      expect(className(undefined)).toBe("");
+      expect(className("")).toBe("");
+      expect(className(null)).toBe("");
     });
 
     test("ignores non-classable values", () => {
       // @ts-expect-error
-      expect(toClassName(NaN)).toBe("");
+      expect(className(NaN)).toBe("");
       // @ts-expect-error
-      expect(toClassName(Infinity)).toBe("");
+      expect(className(Infinity)).toBe("");
       // @ts-expect-error
-      expect(toClassName(0)).toBe("");
+      expect(className(0)).toBe("");
       // @ts-expect-error
-      expect(toClassName(123)).toBe("");
+      expect(className(123)).toBe("");
 
-      expect(toClassName(true)).toBe("");
-      expect(toClassName(false)).toBe("");
+      expect(className(true)).toBe("");
+      expect(className(false)).toBe("");
     });
 
     test("handles objects", () => {
       expect(
-        toClassName({
+        className({
           class1: true,
           class2: false,
           class3: undefined,
