@@ -13,7 +13,7 @@
   },
   "scripts": {
     "build": "pnpm test && tsup index.ts --format cjs,esm --dts",
-    "lint": "tsc",
+    "typecheck": "tsc --noEmit",
     "test": "pnpm jest",
     "coverage": "pnpm jest --coverage",
     "publish": "pnpm build && changeset publish"
