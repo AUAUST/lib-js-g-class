@@ -5,6 +5,7 @@ import { getNamespacedClasses } from "./utils";
 /**
  * Registers a CSS module under the specified namespace.
  * After being called, it can be accessed via the `gc` function.
+ * Always returns `true`.
  *
  * WARNING: It must be called before any `gc` calls are made with the same namespace, or else it will be undefined.
  *
@@ -31,6 +32,7 @@ function registerModule(namespace: string, cssModule: GClass.CSSModuleClasses) {
 
 /**
  * Removes a registered CSS module.
+ * Returns a boolean indicating whether any classes were removed.
  */
 function dropModule(namespace: string) {
   if (!namespace || typeof namespace !== "string") return false;

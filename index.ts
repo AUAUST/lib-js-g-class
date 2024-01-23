@@ -1,7 +1,7 @@
-import { gc } from "~/globalClasses";
 import { cl } from "~/classList";
-import { registerModule, dropModule } from "~/globalClassesRegistry";
-import { getNamespacedClasses, cn } from "~/utils";
+import { gc } from "~/globalClasses";
+import { dropModule, registerModule } from "~/globalClassesRegistry";
+import { cn, getNamespacedClasses } from "~/utils";
 
 import { type GClass, type RegisteredCSSModules } from "~/types";
 
@@ -10,12 +10,11 @@ export {
   RegisteredCSSModules,
   cl,
   cl as classList,
-  // `cl` being the core feature, makes sense to export it as default
-  cl as default,
+  cn as className,
+  cn,
+  dropModule,
   gc,
+  getNamespacedClasses,
   gc as globalClasses,
   registerModule,
-  dropModule,
-  getNamespacedClasses,
-  cn as toClassName,
 };
