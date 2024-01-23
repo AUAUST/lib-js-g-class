@@ -14,39 +14,36 @@ import { type GClass } from "~/types";
  * import gridStyles from "./grid.module.scss";
  * import clearStyles from "./clear.module.scss";
  * import textStyles from "./text.module.scss";
- * import { cl } from "./helpers";
+ * import { cl } from "@auaust/g-class";
  *
  * <div class={cl(gridStyles.container, clearStyles.link, textStyles.xl)}>
  *
- * // can effectively be replaced with
+ * // can effectively be replaced with the following
+ * // as long as the classes are registered
  *
- * import { gc } from "./helpers";
+ * import { gc } from "@auaust/g-class";
  *
  * <div class={gc("grid:container", "clear:link", "text:xl")}>
  * ```
  *
  * @example ```tsx
  * // Some more advanced examples
- * <div class={gc("grid:container", "text:large")}> </div>
- * <div class={cl("other-class", gc("grid:container", "text:large"), gc["text:colorBlack"])}> </div>
- * <div class={cl({[gc("grid:container")]: booleanFunction() })}> </div>
+ * <div class={gc("grid:container", "text:large")}>
+ * <div class={cl("other-class", gc("grid:container", "text:large"), gc["text:colorBlack"])}>
+ * <div class={cl({[gc("grid:container")]: booleanFunction() })}>
  * ```
  *
  * @example ```tsx
  * // Note it can be used both as a function and as an object if only one class is needed.
+ * // That is because the classes are stored as properties on the function.
  * gc("grid:container") === gc["grid:container"]
  * ```
+ *
+ * @example ```tsx
+ * // Since the return value is a simple string, you can also use it in vanilla JS.
+ * document.querySelector(".my-element").classList.add(gc("grid:container"));
+ * ```
  */
-// const gc = function (...classes): string {
-//   return cl(...classes.map((cl) => gc[cl]));
-// } as TGlobalClassesFunction;
-
-// type TGlobalClassesFunction = {
-//   (...classes: GClass.RegisteredGlobalClasses[]): string;
-// } & {
-//   [K in GClass.RegisteredGlobalClasses]: string;
-// };
-
 const gc: {
   (...classes: GClass.RegisteredGlobalClasses[]): string;
 } & {

@@ -10,6 +10,8 @@ import { toClassName } from "./utils";
  * Falsy values, booleans and numbers are ignored from the final string.
  *
  * @example ```tsx
+ * import { cl } from "@auaust/g-class";
+ *
  * <div class={cl("class1", "class2")}> </div> // "class1 class2"
  * <div class={cl("class1", "class2", false && "class3")}> </div> // "class1 class2"
  * <div class={cl("class1", "class2", true && "class3")}> </div> // "class1 class2 class3"
