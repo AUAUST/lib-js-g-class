@@ -9,58 +9,60 @@ function getNamespacedClasses(
 ): [GClass.NamespacedClassName, string][] {
   return Object.keys(module).map(function (className) {
     return [`${namespace}:${className}`, module[className]!] as const;
-  });
+  }); // [`ns:className`: `_ns_class-name_1234`][]
 }
 
 /**
- * Takes a Classable value and returns the string representation of it.
+ * The `cn` function, for Class Name, takes a wide range of input values and returns the string representation of it.
  *
  * Whether the output contains one or multiple classes depends on the input.
  * It might return an empty string, but will always return a string.
  *
+ * Values that wouldn't make sense as a class name are ignored. (Falsy values, booleans and numbers)
+ *
  * Improved version of clsx: https://github.com/lukeed/clsx/blob/master/src/index.js
  */
-function toClassName(raw: GClass.Classable): string {
+function cn(raw: GClass.Classable): string {
   // Any falsy value is ignored.
   if (!raw) return "";
 
-  // Strings are returned as-is.
-  if (typeof raw === "string") {
-    return raw;
-  }
+  switch (typeof raw) {
+    // Strings are returned as-is.
+    case "string":
+      return raw;
 
-  // Objcts might be...
-  if (typeof raw === "object") {
-    let str = "";
+    // Functions are called and their return value passed through the same process.
+    case "function":
+      return cn(raw());
 
-    // ...arrays, in which case they're iterated over...
-    if (Array.isArray(raw)) {
-      let parsed: GClass.ClassName;
+    // Objects and arrays are iterated through.
+    case "object": {
+      let str = "";
 
-      for (const item of raw) {
-        if (item && (parsed = toClassName(item))) {
+      // Arrays are flattened and each value passed through the same process.
+      if (Array.isArray(raw)) {
+        let parsed: GClass.ClassName;
+
+        for (const item of raw) {
+          if (item && (parsed = cn(item))) {
+            str && (str += " ");
+            str += parsed;
+          }
+        }
+
+        return str;
+      }
+
+      // Objects are looped through, using the keys as class names and the values as booleans to determine whether to include them.
+      for (const key in raw) {
+        if (raw[key]) {
           str && (str += " ");
-          str += parsed;
+          str += key;
         }
       }
 
       return str;
     }
-
-    // ...or objects, in which case we use the keys as class names and the values as booleans to determine whether to include them.
-    for (const key in raw) {
-      if (raw[key]) {
-        str && (str += " ");
-        str += key;
-      }
-    }
-
-    return str;
-  }
-
-  // Functions are called and their return value passed through the same process.
-  if (typeof raw === "function") {
-    return toClassName(raw());
   }
 
   // Numbers and booleans are simply ignored.
@@ -68,4 +70,4 @@ function toClassName(raw: GClass.Classable): string {
   return "";
 }
 
-export { getNamespacedClasses, toClassName };
+export { getNamespacedClasses, cn };

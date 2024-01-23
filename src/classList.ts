@@ -1,5 +1,5 @@
 import { type GClass } from "./types";
-import { toClassName } from "./utils";
+import { cn } from "./utils";
 
 /**
  * The `cl` function, for Class List, takes a wide range of inputs and parses them into a final class string.
@@ -24,7 +24,7 @@ function cl(...classes: GClass.Classable[]): string {
   let parsed: GClass.Classable;
 
   for (const cls of classes) {
-    if ((parsed = toClassName(cls))) {
+    if ((parsed = cn(cls))) {
       str && (str += " ");
       str += parsed;
     }

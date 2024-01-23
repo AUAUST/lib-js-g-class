@@ -1,7 +1,7 @@
 import { gc } from "~/globalClasses";
 import { cl } from "~/classList";
 import { registerModule, dropModule } from "~/globalClassesRegistry";
-import { getNamespacedClasses, toClassName } from "~/utils";
+import { getNamespacedClasses, cn } from "~/utils";
 
 import { type GClass, type RegisteredCSSModules } from "~/types";
 
@@ -17,5 +17,5 @@ export {
   registerModule,
   dropModule,
   getNamespacedClasses,
-  toClassName,
+  cn as toClassName,
 };
