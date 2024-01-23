@@ -18,19 +18,26 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 21.x
-      - name: Install Dependencies
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+
+      - name: Install dependencies
         run: |
-          corepack enable
-          yarn set version stable
-          yarn install --immutable
-          yarn run lint
+          pnpm install --frozen-lockfile
+
+      - name: Build & Test
+        run: |
+          pnpm run typecheck
+          pnpm run build
+          pnpm run test
 
       - name: Create Release Pull Request or Publish to npm
         id: changesets
         uses: changesets/action@v1
         with:
           # This expects you to have a script called release which does a build for your packages and calls changeset publish
-          publish: yarn publish
+          publish: pnpm publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
