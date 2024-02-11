@@ -1,5 +1,11 @@
 # @auaust/g-class
 
+## 0.3.0
+
+### Minor Changes
+
+- 03596bc: `registerModules` to easily register multiple modules at once
+
 ## 0.2.0
 
 ### Minor Changes
