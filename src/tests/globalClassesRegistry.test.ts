@@ -70,12 +70,12 @@ describe("globalClassesRegistry", () => {
 
     registerModule("style", style);
 
-    test("returns false if the namespace is not registered", () => {
-      expect(dropModule("fake")).toBe(false);
+    test("returns 0 if the namespace is not registered", () => {
+      expect(dropModule("fake")).toBe(0);
     });
 
-    test("returns true if the namespace is registered", () => {
-      expect(dropModule("style")).toBe(true);
+    test("returns the number of classes removed if the namespace is registered", () => {
+      expect(dropModule("style")).toBeGreaterThan(0);
     });
 
     test("actually removes the classes from the globalClasses object", () => {

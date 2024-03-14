@@ -57,19 +57,20 @@ function registerModules(modules: Record<string, GClass.CSSModuleClasses>) {
 
 /**
  * Removes a registered CSS module.
- * Returns a boolean indicating whether any classes were removed.
+ * Returns the number of classes that were removed.
  */
 function dropModule(namespace: string) {
   if (!namespace || typeof namespace !== "string") return false;
 
-  let deleted = 0;
+  let deleted = 0,
+    prefix = `${namespace}:`;
 
   for (const className in gc) {
-    if (className.startsWith(`${namespace}:`))
+    if (className.startsWith(prefix))
       delete gc[className as keyof typeof gc] && deleted++;
   }
 
-  return deleted > 0;
+  return deleted;
 }
 
 export { dropModule, registerModule, registerModules };
