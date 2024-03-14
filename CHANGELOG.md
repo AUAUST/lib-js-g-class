@@ -1,5 +1,11 @@
 # @auaust/g-class
 
+## 0.3.1
+
+### Patch Changes
+
+- 668f9f8: Minor code style improvements
+
 ## 0.3.0
 
 ### Minor Changes
