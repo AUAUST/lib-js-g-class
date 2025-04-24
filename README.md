@@ -5,7 +5,7 @@
 
 # G-Class
 
-G-Class provides a set of functions that helps you deal with CSS modules and classes from JavaScript. Alike the Mercedes-Benz G-Class, it is robust, polyvalent and powerful. Unlike the Mercedes-Benz G-Class, it is lightweight, free, and isn't a car.
+G-Class provides a set of functions that helps you deal with CSS modules and classes from JavaScript. Alike the Mercedes-Benz G-Class, it is robust, elegant and powerful. Unlike the Mercedes-Benz G-Class, it is lightweight, free, and isn't a car.
 
 ## Overview
 
